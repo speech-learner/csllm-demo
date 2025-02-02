@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Enhancing Multilingual Speech Generation and Recognition Abilities in LLMs with Constructed Code-switched Data</title>
+  <style>
+body {
+  font-size: 20px;
+}
+audio {
+  width: 200px;
+  margin-right: 10px;
+}
+
+</style>
+</head>
+<body>
+  <h1>Enhancing Multilingual Speech Generation and Recognition Abilities in LLMs with Constructed Code-switched Data</h1>
+    
+  <hr>
+
+  <h2>Abstract</h2>
+ While large language models (LLMs) have been explored in the speech domain for both generation and recognition tasks, their applications are predominantly confined to monolingual scenarios, with limited exploration in multilingual and code-switched (CS) contexts. Additionally, generation and recognition tasks are often handled separately, such as VALL-E and Qwen-Audio. In this paper, we propose a MutltiLingual MultiTask (MLMT) model, integrating multilingual speech generation and recognition tasks within the single LLM. Furthermore, we develop an effective data construction approach that splits and concatenates words from different languages to equip LLMs with CS synthesis ability without relying on CS data. The experimental results demonstrate that our model outperforms other baselines with a comparable data scale. Furthermore, our data construction approach not only equips LLMs with CS speech synthesis capability with comparable speaker consistency and similarity to any given speaker, but also improves the performance of LLMs in multilingual speech generation and recognition tasks.
+  <hr>  
+  <hr>
+    <h2>Methodology</h2>
+    <h3>Model Architecture</h3>
+    <img src="overall.jpg" width=1200/>
+    <li>Fig. 1. The architecture of MLMT system. Figure (a) shows the pipeline of implementing ASR task. Figure (b) shows the pipeline of implementing TTS task. Note that all parameters of adapter and LLM are the same implementing different tasks.</li>
+    <h3>Data constrcution strategy</h3>
+    <img src="data_example.jpg" width=600 />
+    <li>Fig. 2. The procedure of constructing CS data.</li>
+
+  <hr>
+  <h2> System Comparison</h2>
+  <li>GT: Ground truth speech</li>
+  <li>SpeechGPT: Open-sourced SpeechGPT (stage-2)</li>
+  <li>Initial HuBERT: A model trained with initial mHubert tokens using LLaMA 3 backbone </li>
+  <li>VALL-E X: Open-sourced VALLE-X implementation with 704 hours English data and 598 hours Mandarin data</li>
+  <li>MLMT_mixed500: Our proposed model trained with 500 hours Libripseech-960, 500 hours AISHELL-2 and 10 hour constructed CS data</li>
+  <li>MLMT_no500: Our proposed model trained with 500 hours Librispeech-960, 500 hours AISHELL-2</li>
+  <li>MLMT_mixed: Our proposed model trained with 960 hours Libripseech-960, 1000 hours AISHELL-2 and 10 hour constructed CS data</li>
+  <li>MLMT_no: Our proposed model trained with 960 hours Librispeech-960, 1000 hours AISHELL-2</li>
+  <h2>Results on English TTS</h2>
+    <!---adaptation performance table -->
+  <table border="1">
+    <tr>
+      <td>No.</td>
+      <td>Transcript</td>
+      <td>GT </td>
+      <td>SpeechGPT </td>
+      <td>Initial Hubert</td>
+      <td>VALL-E X</td>
+      <td>MLMT_no500</td>
+      <td>MLMT_mixed500</td>
+      <td>MLMT_no</td>
+      <td>MLMT_mixed</td>
+    </tr>
+    <!--each sample of each 8 systems-->
+    <tr>
+      <td>1</td>
+      <td>Stuff it into you his belly counselled him</td>
+      <td>
+        <audio controls>
+        <source src="./eng/GT/1.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/speechgpt/answer_1.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/initial_hubert/1_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/vallex/1_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500no/1_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500/1_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_no/1_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_mixed/1_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>He tried to think how it could be</td>
+      <td>
+        <audio controls>
+        <source src="./eng/GT/14.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/speechgpt/answer_14.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/initial_hubert/14_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/vallex/14_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500no/14_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500/14_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_no/14_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_mixed/14_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Be ware of making that mistake</td>
+      <td>
+        <audio controls>
+        <source src="./eng/GT/30.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/speechgpt/answer_30.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/initial_hubert/30_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/vallex/30_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500no/30_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500/30_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_no/30_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_mixed/30_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>He had the faith in him that moves mountains</td>
+      <td>
+        <audio controls>
+        <source src="./eng/GT/35.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/speechgpt/answer_35.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/initial_hubert/35_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/vallex/35_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500no/35_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500/35_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_no/35_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_mixed/35_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>He could wait no longer</td>
+      <td>
+        <audio controls>
+        <source src="./eng/GT/38.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/speechgpt/answer_38.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/initial_hubert/38_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/vallex/38_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500no/38_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500/38_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_no/38_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_mixed/38_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>She sent me the pages in question before she died</td>
+      <td>
+        <audio controls>
+        <source src="./eng/GT/144.wav" type="audio/wav">
+        </audio>
+      </td>
+     <td>
+        <audio controls>
+        <source src="./eng/speechgpt/answer_144.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/initial_hubert/144_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/vallex/144_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500no/144_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500/144_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_no/144_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_mixed/144_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Probably not till the second post</td>
+      <td>
+        <audio controls>
+        <source src="./eng/GT/150.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/speechgpt/answer_150.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/initial_hubert/150_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/vallex/150_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500no/150_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500/150_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_no/150_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_mixed/150_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Cried the ladies whose departure had been fixed</td>
+      <td>
+        <audio controls>
+        <source src="./eng/GT/152.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/speechgpt/answer_152.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/initial_hubert/152_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/vallex/152_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500no/152_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500/152_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_no/152_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_mixed/152_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <td>9</td>
+      <td>It was the beauty of it</td>
+    <td>
+        <audio controls>
+        <source src="./eng/GT/167.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/speechgpt/answer_167.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/initial_hubert/167_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/vallex/167_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500no/167_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500/167_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_no/167_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_mixed/167_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <td>10</td>
+      <td>If spoken to, she would not speak again</td>
+    <td>
+        <audio controls>
+        <source src="./eng/GT/186.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/speechgpt/answer_186.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/initial_hubert/186_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/vallex/186_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500no/186_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_500/186_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_no/186_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./eng/MLMT_mixed/186_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+  </table>
+  
+  <hr>
+  <h2> Results on Mandarin TTS</h2>
+    <!---preservation performance table -->
+  <table border="1">
+    <tr>
+      <td>No.</td>
+      <td>Transcript</td>
+      <td>GT</td>
+      <td>VALL-E X</td>
+      <td>MLMT_no500</td>
+      <td>MLMT_mixed500</td>
+      <td>MLMT_no</td>
+      <td>MLMT_mixed</td>
+    </tr>
+    <!--each sample of each 6 systems-->
+    <tr>
+      <td>1</td>
+      <td>把她推进去</td>
+      <td>
+        <audio controls>
+        <source src="./zh/GT/10.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/vallex/10_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500no/10_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500/10_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_no/10_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_mixed/10_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>你那几句话</td>
+      <td>
+        <audio controls>
+        <source src="./zh/GT/18.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/vallex/18_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500no/18_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500/18_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_no/18_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_mixed/18_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>简单但非常有效</td>
+      <td>
+        <audio controls>
+        <source src="./zh/GT/21.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/vallex/21_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500no/21_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500/21_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_no/21_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_mixed/21_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>我帮你问问从那怎么到我家</td>
+      <td>
+        <audio controls>
+        <source src="./zh/GT/33.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/vallex/33_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500no/33_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500/33_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_no/33_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_mixed/33_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>你想要的不是钱</td>
+      <td>
+        <audio controls>
+        <source src="./zh/GT/36.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/vallex/36_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500no/36_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500/36_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_no/36_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_mixed/36_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>实际上这些画不是我的</td>
+      <td>
+        <audio controls>
+        <source src="./zh/GT/4069.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/vallex/4069_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500no/4069_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500/4069_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_no/4069_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_mixed/4069_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>在东德克萨斯一带活动</td>
+      <td>
+        <audio controls>
+        <source src="./zh/GT/4084.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/vallex/4084_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500no/4084_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500/4084_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_no/4084_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_mixed/4084_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      
+    </tr>
+     <tr>
+      <td>8</td>
+      <td>好像多年一样</td>
+       <td>
+        <audio controls>
+        <source src="./zh/GT/4099.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/vallex/4099_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500no/4099_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500/4099_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_no/4099_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_mixed/4099_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>你说什么我都会信的</td>
+      <td>
+        <audio controls>
+        <source src="./zh/GT/4109.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/vallex/4109_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500no/4109_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500/4109_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_no/4109_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_mixed/4109_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>也不了解自己在说什么</td>
+      <td>
+        <audio controls>
+        <source src="./zh/GT/4115.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/vallex/4115_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500no/4115_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_500/4115_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_no/4115_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./zh/MLMT_mixed/4115_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>      
+    </tr>
+  </table>
+  <hr>
+  <h2> Results on CSTTS</h2>
+  The text are randomly sampled from ASRU-2019 Challenge test set. The text is generated using the speaker from the reference speech. The reference speech are randomly selected from TIMIT (English) and ASCEND (Mandarin).
+  <table border="1">
+    <tr>
+      <td>No.</td>
+      <td>Transcript</td>
+      <td>Reference speech</td>
+      <td>VALL-E X</td>
+      <td>MLMT_no500</td>
+      <td>MLMT_mixed500</td>
+      <td>MLMT_no</td>
+      <td>MLMT_mixed</td>
+    </tr>
+    <!--each sample of each 6 systems-->
+    <tr>
+      <td>1</td>
+      <td>Boy crisis出现真不是没道理的</td>
+      <td>
+        <audio controls>
+        <source src="./cs/ref/3.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/vallex/3_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500no/3_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500/3_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_no/3_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_mixed/3_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>工资还剩六百元的话就买riddle joker</td>
+      <td>
+        <audio controls>
+        <source src="./cs/ref/89.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/vallex/89_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500no/89_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500/89_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_no/89_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_mixed/89_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>一个漂亮的spear成功双肩压地三秒</td>
+            <td>
+        <audio controls>
+        <source src="./cs/ref/203.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/vallex/203_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500no/203_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500/203_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_no/203_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_mixed/203_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>去每个公寓找它的reception</td>
+            <td>
+        <audio controls>
+        <source src="./cs/ref/342.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/vallex/342_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500no/342_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500/342_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_no/342_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_mixed/342_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>awkward moment在商场遇到以前的学生</td>
+      <td>
+        <audio controls>
+        <source src="./cs/ref/558.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/vallex/558_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500no/558_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500/558_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_no/558_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_mixed/558_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>你不会连airmail都私吞吧</td>
+      <td>
+        <audio controls>
+        <source src="./cs/ref/646.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/vallex/646_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500no/646_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500/646_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_no/646_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_mixed/646_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>修改的patch都亲自写好了</td>
+      <td>
+        <audio controls>
+        <source src="./cs/ref/666.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/vallex/666_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500no/666_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500/666_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_no/666_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_mixed/666_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Lily送我的tulip种子总算开了一朵花</td>
+            <td>
+        <audio controls>
+        <source src="./cs/ref/728.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/vallex/728_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500no/728_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500/728_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_no/728_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_mixed/728_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <td>9</td>
+      <td>目击者都很shaken了话筒还戳人家脸前</td>
+      <td>
+        <audio controls>
+        <source src="./cs/ref/3.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/vallex/15_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500no/15_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500/15_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_no/15_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_mixed/15_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+    <td>10</td>
+      <td>除非你是superman穿在外面</td>
+      <td>
+        <audio controls>
+        <source src="./cs/ref/790.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/vallex/790_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500no/790_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_500/790_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_no/790_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+      <td>
+        <audio controls>
+        <source src="./cs/MLMT_mixed/790_pred.wav" type="audio/wav">
+        </audio>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
