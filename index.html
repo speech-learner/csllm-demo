@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Enhancing Multilingual Speech Generation and Recognition Abilities in LLMs with Constructed Code-switched Data</title>
+  <title>Enhancing Code-switched Speech Synthesis Capability in Large Language Models with only Monolingual Corpora</title>
   <style>
 body {
   font-size: 20px;
@@ -16,18 +16,18 @@ audio {
 </style>
 </head>
 <body>
-  <h1>Enhancing Multilingual Speech Generation and Recognition Abilities in LLMs with Constructed Code-switched Data</h1>
+  <h1>Enhancing Code-switched Speech Synthesis Capability in Large Language Models with only Monolingual Corpora</h1>
     
   <hr>
 
   <h2>Abstract</h2>
- While large language models (LLMs) have been explored in the speech domain for both generation and recognition tasks, their applications are predominantly confined to monolingual scenarios, with limited exploration in multilingual and code-switched (CS) contexts. Additionally, generation and recognition tasks are often handled separately, such as VALL-E and Qwen-Audio. In this paper, we propose a MutltiLingual MultiTask (MLMT) model, integrating multilingual speech generation and recognition tasks within the single LLM. Furthermore, we develop an effective data construction approach that splits and concatenates words from different languages to equip LLMs with CS synthesis ability without relying on CS data. The experimental results demonstrate that our model outperforms other baselines with a comparable data scale. Furthermore, our data construction approach not only equips LLMs with CS speech synthesis capability with comparable speaker consistency and similarity to any given speaker, but also improves the performance of LLMs in multilingual speech generation and recognition tasks.
+ While large language models (LLMs) have been explored in the speech domain for both generation and recognition tasks, their applications are predominantly confined to monolingual scenarios, with limited exploration in multilingual and code-switched (CS) contexts. Additionally, generation and recognition tasks are often handled separately, such as VALL-E and Qwen-Audio. In this paper, we propose a MutltiLingual MultiTask (CS-LLM) model, integrating multilingual speech generation and recognition tasks within the single LLM. Furthermore, we develop an effective data construction approach that splits and concatenates words from different languages to equip LLMs with CS synthesis ability without relying on CS data. The experimental results demonstrate that our model outperforms other baselines with a comparable data scale. Furthermore, our data construction approach not only equips LLMs with CS speech synthesis capability with comparable speaker consistency and similarity to any given speaker, but also improves the performance of LLMs in multilingual speech generation and recognition tasks.
   <hr>  
   <hr>
     <h2>Methodology</h2>
     <h3>Model Architecture</h3>
     <img src="overall.jpg" width=1200/>
-    <li>Fig. 1. The architecture of MLMT system. Figure (a) shows the pipeline of implementing ASR task. Figure (b) shows the pipeline of implementing TTS task. Note that all parameters of adapter and LLM are the same implementing different tasks.</li>
+    <li>Fig. 1. The architecture of CS-LLM system. Figure (a) shows the pipeline of implementing ASR task. Figure (b) shows the pipeline of implementing TTS task. Note that all parameters of adapter and LLM are the same implementing different tasks.</li>
     <h3>Data constrcution strategy</h3>
     <img src="data_example.jpg" width=600 />
     <li>Fig. 2. The procedure of constructing CS data.</li>
@@ -38,10 +38,10 @@ audio {
   <li>SpeechGPT: Open-sourced SpeechGPT (stage-2)</li>
   <li>Initial HuBERT: A model trained with initial mHubert tokens using LLaMA 3 backbone </li>
   <li>VALL-E X: Open-sourced VALLE-X implementation with 704 hours English data and 598 hours Mandarin data</li>
-  <li>MLMT_mixed500: Our proposed model trained with 500 hours Libripseech-960, 500 hours AISHELL-2 and 10 hour constructed CS data</li>
-  <li>MLMT_no500: Our proposed model trained with 500 hours Librispeech-960, 500 hours AISHELL-2</li>
-  <li>MLMT_mixed: Our proposed model trained with 960 hours Libripseech-960, 1000 hours AISHELL-2 and 10 hour constructed CS data</li>
-  <li>MLMT_no: Our proposed model trained with 960 hours Librispeech-960, 1000 hours AISHELL-2</li>
+  <li>CS-LLM_mixed500: Our proposed model trained with 500 hours Libripseech-960, 500 hours AISHELL-2 and 10 hour constructed CS data</li>
+  <li>CS-LLM_no500: Our proposed model trained with 500 hours Librispeech-960, 500 hours AISHELL-2</li>
+  <li>CS-LLM_mixed: Our proposed model trained with 960 hours Libripseech-960, 1000 hours AISHELL-2 and 10 hour constructed CS data</li>
+  <li>CS-LLM_no: Our proposed model trained with 960 hours Librispeech-960, 1000 hours AISHELL-2</li>
   <h2>Results on English TTS</h2>
     <!---adaptation performance table -->
   <table border="1">
@@ -52,10 +52,10 @@ audio {
       <td>SpeechGPT </td>
       <td>Initial Hubert</td>
       <td>VALL-E X</td>
-      <td>MLMT_no500</td>
-      <td>MLMT_mixed500</td>
-      <td>MLMT_no</td>
-      <td>MLMT_mixed</td>
+      <td>CS-LLM_no500</td>
+      <td>CS-LLM_mixed500</td>
+      <td>CS-LLM_no</td>
+      <td>CS-LLM_mixed</td>
     </tr>
     <!--each sample of each 8 systems-->
     <tr>
@@ -83,22 +83,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500no/1_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500no/1_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500/1_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500/1_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_no/1_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_no/1_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_mixed/1_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_mixed/1_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -127,22 +127,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500no/14_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500no/14_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500/14_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500/14_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_no/14_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_no/14_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_mixed/14_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_mixed/14_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -171,22 +171,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500no/30_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500no/30_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500/30_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500/30_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_no/30_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_no/30_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_mixed/30_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_mixed/30_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -215,22 +215,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500no/35_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500no/35_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500/35_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500/35_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_no/35_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_no/35_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_mixed/35_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_mixed/35_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -259,22 +259,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500no/38_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500no/38_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500/38_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500/38_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_no/38_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_no/38_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_mixed/38_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_mixed/38_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -303,22 +303,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500no/144_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500no/144_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500/144_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500/144_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_no/144_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_no/144_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_mixed/144_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_mixed/144_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -347,22 +347,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500no/150_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500no/150_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500/150_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500/150_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_no/150_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_no/150_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_mixed/150_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_mixed/150_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -391,22 +391,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500no/152_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500no/152_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500/152_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500/152_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_no/152_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_no/152_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_mixed/152_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_mixed/152_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -434,22 +434,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500no/167_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500no/167_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500/167_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500/167_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_no/167_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_no/167_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_mixed/167_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_mixed/167_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -477,22 +477,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500no/186_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500no/186_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_500/186_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_500/186_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_no/186_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_no/186_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./eng/MLMT_mixed/186_pred.wav" type="audio/wav">
+        <source src="./eng/CS-LLM_mixed/186_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -507,10 +507,10 @@ audio {
       <td>Transcript</td>
       <td>GT</td>
       <td>VALL-E X</td>
-      <td>MLMT_no500</td>
-      <td>MLMT_mixed500</td>
-      <td>MLMT_no</td>
-      <td>MLMT_mixed</td>
+      <td>CS-LLM_no500</td>
+      <td>CS-LLM_mixed500</td>
+      <td>CS-LLM_no</td>
+      <td>CS-LLM_mixed</td>
     </tr>
     <!--each sample of each 6 systems-->
     <tr>
@@ -528,22 +528,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500no/10_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500no/10_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500/10_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500/10_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_no/10_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_no/10_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_mixed/10_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_mixed/10_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -562,22 +562,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500no/18_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500no/18_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500/18_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500/18_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_no/18_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_no/18_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_mixed/18_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_mixed/18_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -596,22 +596,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500no/21_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500no/21_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500/21_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500/21_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_no/21_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_no/21_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_mixed/21_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_mixed/21_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -630,22 +630,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500no/33_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500no/33_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500/33_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500/33_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_no/33_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_no/33_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_mixed/33_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_mixed/33_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -664,22 +664,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500no/36_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500no/36_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500/36_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500/36_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_no/36_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_no/36_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_mixed/36_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_mixed/36_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -698,22 +698,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500no/4069_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500no/4069_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500/4069_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500/4069_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_no/4069_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_no/4069_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_mixed/4069_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_mixed/4069_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -732,22 +732,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500no/4084_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500no/4084_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500/4084_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500/4084_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_no/4084_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_no/4084_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_mixed/4084_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_mixed/4084_pred.wav" type="audio/wav">
         </audio>
       </td>
       
@@ -767,22 +767,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500no/4099_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500no/4099_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500/4099_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500/4099_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_no/4099_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_no/4099_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_mixed/4099_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_mixed/4099_pred.wav" type="audio/wav">
         </audio>
       </td>
       
@@ -802,22 +802,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500no/4109_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500no/4109_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500/4109_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500/4109_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_no/4109_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_no/4109_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_mixed/4109_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_mixed/4109_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -836,22 +836,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500no/4115_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500no/4115_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_500/4115_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_500/4115_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_no/4115_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_no/4115_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./zh/MLMT_mixed/4115_pred.wav" type="audio/wav">
+        <source src="./zh/CS-LLM_mixed/4115_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>      
@@ -866,10 +866,10 @@ audio {
       <td>Transcript</td>
       <td>Reference speech</td>
       <td>VALL-E X</td>
-      <td>MLMT_no500</td>
-      <td>MLMT_mixed500</td>
-      <td>MLMT_no</td>
-      <td>MLMT_mixed</td>
+      <td>CS-LLM_no500</td>
+      <td>CS-LLM_mixed500</td>
+      <td>CS-LLM_no</td>
+      <td>CS-LLM_mixed</td>
     </tr>
     <!--each sample of each 6 systems-->
     <tr>
@@ -887,22 +887,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500no/3_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500no/3_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500/3_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500/3_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_no/3_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_no/3_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_mixed/3_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_mixed/3_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -921,22 +921,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500no/89_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500no/89_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500/89_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500/89_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_no/89_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_no/89_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_mixed/89_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_mixed/89_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -955,22 +955,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500no/203_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500no/203_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500/203_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500/203_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_no/203_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_no/203_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_mixed/203_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_mixed/203_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -989,22 +989,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500no/342_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500no/342_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500/342_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500/342_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_no/342_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_no/342_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_mixed/342_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_mixed/342_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -1023,22 +1023,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500no/558_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500no/558_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500/558_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500/558_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_no/558_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_no/558_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_mixed/558_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_mixed/558_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -1057,22 +1057,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500no/646_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500no/646_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500/646_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500/646_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_no/646_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_no/646_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_mixed/646_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_mixed/646_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -1091,22 +1091,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500no/666_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500no/666_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500/666_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500/666_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_no/666_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_no/666_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_mixed/666_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_mixed/666_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -1125,22 +1125,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500no/728_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500no/728_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500/728_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500/728_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_no/728_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_no/728_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_mixed/728_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_mixed/728_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -1158,22 +1158,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500no/15_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500no/15_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500/15_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500/15_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_no/15_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_no/15_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_mixed/15_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_mixed/15_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
@@ -1191,22 +1191,22 @@ audio {
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500no/790_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500no/790_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_500/790_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_500/790_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_no/790_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_no/790_pred.wav" type="audio/wav">
         </audio>
       </td>
       <td>
         <audio controls>
-        <source src="./cs/MLMT_mixed/790_pred.wav" type="audio/wav">
+        <source src="./cs/CS-LLM_mixed/790_pred.wav" type="audio/wav">
         </audio>
       </td>
     </tr>
