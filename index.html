@@ -21,13 +21,13 @@ audio {
   <hr>
 
   <h2>Abstract</h2>
- While large language models (LLMs) have been explored in the speech domain for both generation and recognition tasks, their applications are predominantly confined to monolingual scenarios, with limited exploration in multilingual and code-switched (CS) contexts. Additionally, generation and recognition tasks are often handled separately, such as VALL-E and Qwen-Audio. In this paper, we propose a MutltiLingual MultiTask (MLMT) model, integrating multilingual speech generation and recognition tasks within the single LLM. Furthermore, we develop an effective data construction approach that splits and concatenates words from different languages to equip LLMs with CS synthesis ability without relying on CS data. The experimental results demonstrate that our model outperforms other baselines with a comparable data scale. Furthermore, our data construction approach not only equips LLMs with CS speech synthesis capability with comparable speaker consistency and similarity to any given speaker, but also improves the performance of LLMs in multilingual speech generation and recognition tasks.
+ While Large Language Models (LLMs) have been explored in the speech domain for generation and recognition tasks, their applications are predominantly confined to  monolingual scenarios, with limited explorations in code-switched (CS) contexts. In this paper, we propose a Code-Switched Large Language Model (CS-LLM) to enhance the code-switched text-to-speech synthesis abilities in LLMs with only monolingual corpora. Specifically, we empower LLMs to understand speech modality through multilingual speech recognition and synthesis tasks. Additionally, we develop an effective CS data construction method that splits and concatenates words from different languages to equip LLMs with CS speech synthesis ability. Experiments show that our model outperforms baselines in CS speech synthesis with a comparable data scale. Besides, our approach not only achieves CS speech synthesis with good speaker consistency and similarity but also excels in multilingual speech generation and recognition tasks.
   <hr>  
   <hr>
     <h2>Methodology</h2>
     <h3>Model Architecture</h3>
     <img src="overall.jpg" width=1200/>
-    <li>Fig. 1. The architecture of CS-LLM system. Figure (a) shows the pipeline of implementing ASR task. Figure (b) shows the pipeline of implementing TTS task. Note that all parameters of adapter and LLM are the same implementing different tasks.</li>
+    <li>Fig. 1. A pipeline of CS-LLM for implementing ASR task (Figure (a)) and TTS task (Figure (b)). Note parameters of all adapters and the LLM backbone are the same when implementing different tasks.</li>
     <h3>Data constrcution strategy</h3>
     <img src="data_example.jpg" width=600 />
     <li>Fig. 2. The procedure of constructing CS data.</li>
